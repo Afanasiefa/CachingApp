@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Test Task</string>
+    <string name="title">Title</string>
+    <string name="some_text">Some text</string>
+    <string name="user_name">User Name</string>
+    <string name="comment_heading">Comments</string>
+</resources>

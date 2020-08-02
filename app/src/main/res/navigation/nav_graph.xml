@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/detailedFragment"
+        android:name="com.example.testtask.ui.detailed.DetailedFragment"
+        android:label="detailed_fragment"
+        tools:layout="@layout/detailed_fragment" >
+        <argument
+            android:name="post"
+            app:argType="com.example.testtask.modelki.Post" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.testtask.ui.main.MainFragment"
+        android:label="main_fragment"
+        tools:layout="@layout/main_fragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_detailedFragment"
+            app:destination="@id/detailedFragment" />
+    </fragment>
+</navigation>
