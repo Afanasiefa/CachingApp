@@ -6,36 +6,36 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testtask.databinding.PostItemBinding
-import com.example.testtask.network.post.PostData
 
-class CommentsListAdapter : ListAdapter<PostData, CommentsListAdapter.PostViewHolder>(CommentDiffUtils()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
-        return PostViewHolder(PostItemBinding.inflate(LayoutInflater.from(parent.context)))
+class CommentsListAdapter : ListAdapter<Comment, CommentsListAdapter.CommentViewHolder>(CommentDiffUtils()) {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
+        return CommentViewHolder(PostItemBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
-    override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
     }
 
-    class CommentDiffUtils() : DiffUtil.ItemCallback<PostData>() {
+    class CommentDiffUtils() : DiffUtil.ItemCallback<Comment>() {
 
-        override fun areItemsTheSame(oldItem: PostData, newItem: PostData): Boolean {
+        override fun areItemsTheSame(oldItem: Comment, newItem: Comment): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: PostData, newItem: PostData): Boolean {
-            return oldItem.id == newItem.id
+        override fun areContentsTheSame(oldItem: Comment, newItem: Comment): Boolean {
+            return oldItem.commentId == newItem.commentId
         }
 
     }
 
-    class PostViewHolder(private val binding: PostItemBinding) :
+    class CommentViewHolder(private val binding: PostItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(post: PostData) {
-            binding.postItemTitle.text = post.title
+        fun bind(comment: Comment) {
+            binding.postItemTitle.text = comment.body
         }
     }
 }

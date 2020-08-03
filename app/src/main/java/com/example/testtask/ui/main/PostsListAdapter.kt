@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.testtask.database.CompletePost
 import com.example.testtask.databinding.PostItemBinding
-import com.example.testtask.modelki.Post
-import com.example.testtask.network.post.PostData
+
 
 class PostsListAdapter(val postClickListener: PostClickListener) :
-    ListAdapter<Post, PostsListAdapter.PostViewHolder>(PostDiffUtils()) {
+    ListAdapter<CompletePost, PostsListAdapter.PostViewHolder>(PostDiffUtils()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         return PostViewHolder(PostItemBinding.inflate(LayoutInflater.from(parent.context)))
@@ -26,18 +26,18 @@ class PostsListAdapter(val postClickListener: PostClickListener) :
         holder.bind(item)
     }
 
-    class PostClickListener(val click: (post: Post) -> Unit) {
-        fun onClick(post: Post): Unit = click(post)
+    class PostClickListener(val click: (post: CompletePost) -> Unit) {
+        fun onClick(post: CompletePost): Unit = click(post)
 
     }
 
-    class PostDiffUtils() : DiffUtil.ItemCallback<Post>() {
+    class PostDiffUtils() : DiffUtil.ItemCallback<CompletePost>() {
 
-        override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
+        override fun areItemsTheSame(oldItem: CompletePost, newItem: CompletePost): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
+        override fun areContentsTheSame(oldItem: CompletePost, newItem: CompletePost): Boolean {
             return oldItem.id == newItem.id
         }
 
@@ -46,8 +46,8 @@ class PostsListAdapter(val postClickListener: PostClickListener) :
     class PostViewHolder(private val binding: PostItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(post: Post) {
-            binding.postItemTitle.text = post.title
+        fun bind(post: CompletePost) {
+            binding.postItemTitle.text = post.post.title
         }
     }
 }
