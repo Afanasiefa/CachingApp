@@ -1,12 +1,12 @@
 package com.example.testtask.network.post
 
-import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.PrimaryKey
 import com.example.testtask.database.DatabaseComment
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
 
 
-@Parcelize
+
 data class CommentData(
 
     @SerializedName("id") val commentId: Int,
@@ -15,10 +15,12 @@ data class CommentData(
     @SerializedName("body") val body: String,
     @SerializedName("email") val email: String
 
-) : Parcelable
+){
+    constructor() : this(0,0,"","","")
+}
 
 
-fun List<CommentData>.asDatabaseComment(): List<DatabaseComment> {
+fun List<CommentData>.asDatabaseModel(): List<DatabaseComment> {
     return map {
         DatabaseComment(
             postId = it.postId,

@@ -2,5 +2,5 @@
 <resources>
     <dimen name="common_padding">30dp</dimen>
     <dimen name="small_margin">10dp</dimen>
-    <dimen name="heading_text_size">22sp</dimen>
+    <dimen name="heading_text_size">18sp</dimen>
 </resources>

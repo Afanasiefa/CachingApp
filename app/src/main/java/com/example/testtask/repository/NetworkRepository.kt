@@ -1,34 +1,42 @@
 package com.example.testtask.repository
 
-import com.example.testtask.database.*
+
+import android.util.Log
+import com.example.testtask.database.CompletePost
+import com.example.testtask.database.PostDao
 import com.example.testtask.network.post.SomeApi
-import com.example.testtask.network.post.asDatabaseComment
-import com.example.testtask.network.post.asDatabasePost
+import com.example.testtask.network.post.asDatabaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class NetworkRepository @Inject constructor(val someApi: SomeApi, val databasePost: PostDao) {
+class NetworkRepository @Inject constructor(
+    val someApi: SomeApi, val databasePost: PostDao
+) {
+
 
     suspend fun getPosts(): List<CompletePost> {
-        return withContext(Dispatchers.IO) {
-            val completeList: MutableList<CompletePost> = mutableListOf()
-            val posts = someApi.getPostFromServer()
-            for (post in posts ){
-                val comments = someApi.getCommentsFromServer(post.postId)
-               // val user = someApi.getUsersFromServer(post.userId)
+        try {
+            return withContext(Dispatchers.IO) {
+                val posts = someApi.getPostFromServer()
+                val comments = someApi.getCommentsFromServer()
+                val user = someApi.getUsersFromServer()
 
-                val postToDb = post.asDatabasePost()
-                val commentToDb = comments.asDatabaseComment()
-              //  val userToDb = user.asDatabaseUser()
+                val postToDb = posts.asDatabaseModel()
+                val commentToDb = comments.asDatabaseModel()
+                val userToDb = user.asDatabaseModel()
+                databasePost.insertAllPosts(postToDb)
+                databasePost.insertAllComments(commentToDb)
+                databasePost.insertAllUsers(userToDb)
+                databasePost.getAllPosts()
 
-                val complete = CompletePost(post.postId, postToDb, commentToDb)
-                completeList.add(complete)
             }
-            databasePost.insertAll(completeList)
-            databasePost.getAllPosts()
-        }
 
+
+        } catch (e: Exception) {
+            Log.e("TAG", e.message)
+            return emptyList()
+        }
     }
 
 

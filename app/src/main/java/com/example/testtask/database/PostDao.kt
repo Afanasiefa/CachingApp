@@ -1,16 +1,25 @@
 package com.example.testtask.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface PostDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(post: List<CompletePost>)
+    fun insertAllPosts(post: List<DatabasePost>)
 
-    @Query("SELECT * FROM posts_table ORDER BY id DESC")
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAllComments(comments: List<DatabaseComment>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAllUsers(users: List<DatabaseUser>)
+
+    @Transaction
+    @Query("SELECT * FROM posts_table")
     fun getAllPosts(): List<CompletePost>
+
+    @Transaction
+    @Query("SELECT * FROM posts_table WHERE postId = :id")
+    fun getPostById(id: Long): CompletePost
+
 
 }

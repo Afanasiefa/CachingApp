@@ -4,4 +4,5 @@
     <string name="some_text">Some text</string>
     <string name="user_name">User Name</string>
     <string name="comment_heading">Comments</string>
+    <string name="comments_number">n comments</string>
 </resources>

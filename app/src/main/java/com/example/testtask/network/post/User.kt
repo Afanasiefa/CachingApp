@@ -42,30 +42,18 @@ data class AddressData(
     @SerializedName("geo") val geo: GeoData
 ) : Parcelable
 
-
-fun UserData.asDatabaseUser(): DatabaseUser {
-    return DatabaseUser(
-        userId = userId,
-        name = name,
-        username = name,
-        email = email,
-        phone = phone,
-        website = website,
-        address = AddressData(
-            street = address.street,
-            suite = address.suite,
-            city = address.city,
-            zipcode = address.zipcode,
-            geo = GeoData(
-                lng = address.geo.lng,
-                lat = address.geo.lat
-            )
-        ),
-        company = CompanyData(
-            name = company.name,
-            catchPhrase = company.catchPhrase,
-            bs = company.bs
+fun List<UserData>.asDatabaseModel(): List<DatabaseUser> {
+    return map {
+        DatabaseUser(
+            userId = it.userId,
+            name = it.name,
+            username = it.username,
+            email = it.email,
+            phone = it.phone,
+            website = it.website
         )
-    )
+    }
+
 }
+
 

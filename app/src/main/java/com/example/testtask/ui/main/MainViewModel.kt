@@ -14,14 +14,14 @@ class MainViewModel @Inject constructor(val networkRepository: NetworkRepository
 
     private var _postsList = MutableLiveData<List<CompletePost>>()
     val postsList: LiveData<List<CompletePost>>
-    get() = _postsList
+        get() = _postsList
 
 
     init {
         fetchPost()
     }
 
-     fun fetchPost(){
+    fun fetchPost(){
         viewModelScope.launch {
             val post = networkRepository.getPosts()
             _postsList.value = post

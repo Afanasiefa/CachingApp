@@ -1,22 +1,15 @@
 package com.example.testtask.network.post
 
 
-import android.service.autofill.UserData
 import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
 
-interface SomeApi{
+interface SomeApi {
     @GET("posts")
-    suspend fun getPostFromServer() : List<PostData>
+    suspend fun getPostFromServer(): List<PostData>
 
     @GET("comments")
-    suspend fun getCommentsFromServer(
-        @Query("postId") postId: Int
-    ) : List<CommentData>
+    suspend fun getCommentsFromServer(): List<CommentData>
 
-    @GET("users/{userId}")
-    suspend fun getUsersFromServer(
-        @Path("id") userId: Int
-    ) : List<UserData>
+    @GET("users")
+    suspend fun getUsersFromServer(): List<UserData>
 }

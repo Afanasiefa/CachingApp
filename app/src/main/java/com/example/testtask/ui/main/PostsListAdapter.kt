@@ -38,7 +38,7 @@ class PostsListAdapter(val postClickListener: PostClickListener) :
         }
 
         override fun areContentsTheSame(oldItem: CompletePost, newItem: CompletePost): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.post.postId == newItem.post.postId
         }
 
     }
@@ -47,7 +47,13 @@ class PostsListAdapter(val postClickListener: PostClickListener) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(post: CompletePost) {
+            binding.postItemUsrName.text = post.user.username
             binding.postItemTitle.text = post.post.title
+            binding.postItemCommentsNum.text = StringBuilder()
+                .append(post.comments.size.toString())
+                .append(" ")
+                .append("comments")
+
         }
     }
 }
