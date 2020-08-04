@@ -3,22 +3,23 @@ package com.example.testtask.database
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-
+import com.example.testtask.network.post.AddressData
+import com.example.testtask.network.post.CompanyData
 
 
 data class DatabasePost(
-    @PrimaryKey val postId: Int,
-    @ColumnInfo val userId: Int,
-    @ColumnInfo val title: String,
-    @ColumnInfo val body: String
+     val postId: Int,
+     val userId: Int,
+     val title: String,
+     val body: String
 )
 
 data class DatabaseComment(
-    @PrimaryKey val commentId: Int,
-    @ColumnInfo val postId: Int,
-    @ColumnInfo val name: String,
-    @ColumnInfo val body: String,
-    @ColumnInfo val email: String
+     val commentId: Int,
+     val postId: Int,
+     val name: String,
+     val body: String,
+     val email: String
 )
 
 data class DatabaseUser(
@@ -26,10 +27,10 @@ data class DatabaseUser(
     val name: String,
     val username: String,
     val email: String,
-    val address: DatabaseAdress,
+    val address: AddressData,
     val phone: String,
     val website: String,
-    val company:DatabaseCompany
+    val company: CompanyData
 )
 
 data class DatabaseGeo(
@@ -53,10 +54,9 @@ data class DatabaseAdress(
 
 ////////////////////////////////////////////////////////
 @Entity(tableName = "posts_table")
-
 data class CompletePost(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey val id: Int,
     @ColumnInfo val post: DatabasePost,
-    @ColumnInfo val comments: List<DatabaseComment>,
-    @ColumnInfo val user: DatabaseUser
+    @ColumnInfo val comments: List<DatabaseComment>
+   // @ColumnInfo val user: DatabaseUser
 )

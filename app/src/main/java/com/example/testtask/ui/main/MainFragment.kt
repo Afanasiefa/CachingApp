@@ -33,7 +33,9 @@ class MainFragment : Fragment() {
 
 
         postsAdapter = PostsListAdapter(PostsListAdapter.PostClickListener {
-            findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetailedFragment(it))
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetailedFragment(
+                it.id.toLong()
+            ))
         })
 
         binding.postsList.apply {

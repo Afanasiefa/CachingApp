@@ -1,10 +1,9 @@
 package com.example.testtask.dagger
 
 import android.app.Application
-import android.content.Context
 import androidx.room.Room
+import com.example.testtask.database.CompletePosts
 import com.example.testtask.database.PostDao
-import com.example.testtask.database.PostsDatabase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -14,11 +13,11 @@ class DatabaseModule(val application: Application) {
 
     @Provides
     @Singleton
-    fun getDatabase(): PostsDatabase {
-        synchronized(PostsDatabase::class.java) {
+    fun getDatabase(): CompletePosts {
+        synchronized(CompletePosts::class.java) {
             return Room.databaseBuilder(
                 application.applicationContext,
-                PostsDatabase::class.java,
+                CompletePosts::class.java,
                 "videos"
             ).build()
         }
@@ -26,7 +25,7 @@ class DatabaseModule(val application: Application) {
 
     @Provides
     @Singleton
-    fun getDao(postsDatabase: PostsDatabase): PostDao {
+    fun getDao(postsDatabase: CompletePosts): PostDao {
       return postsDatabase.postDao()
     }
 }

@@ -13,15 +13,14 @@ data class PostData(
     @SerializedName("body") val body: String
 ) : Parcelable
 
-fun List<PostData>.asDatabaseModel(): List<DatabasePost> {
-    return map {
-        DatabasePost(
-            postId = it.postId,
-            userId = it.userId,
-            title = it.title,
-            body = it.body
-        )
-    }
+fun PostData.asDatabasePost(): DatabasePost {
+    return DatabasePost(
+        postId = postId,
+        userId = userId,
+        title = title,
+        body = body
+    )
+
 }
 
 
