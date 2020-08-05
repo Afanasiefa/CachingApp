@@ -10,18 +10,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testtask.dagger.App
-import com.example.testtask.databinding.MainFragmentBinding
 import com.example.testtask.dagger.modules.viewmodel.ViewModelFactory
+import com.example.testtask.databinding.MainFragmentBinding
 import javax.inject.Inject
 
 class MainFragment : Fragment() {
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var fragmentViewModel: MainFragmentViewModel
     private lateinit var binding: MainFragmentBinding
     private lateinit var postsAdapter: PostsListAdapter
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,15 +29,13 @@ class MainFragment : Fragment() {
     ): View {
 
         App.appComponent.inject(this)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+        fragmentViewModel = ViewModelProvider(this, viewModelFactory).get(MainFragmentViewModel::class.java)
         binding = MainFragmentBinding.inflate(inflater)
-
-
 
         postsAdapter = PostsListAdapter(PostsListAdapter.PostClickListener {
             findNavController().navigate(
                 MainFragmentDirections.actionMainFragmentToDetailedFragment(
-                    it.post.postId!!.toLong()
+                    it.post.postId
                 )
             )
         })
@@ -47,7 +45,7 @@ class MainFragment : Fragment() {
             adapter = postsAdapter
         }
 
-        viewModel.postsList.observe(viewLifecycleOwner, Observer {
+        fragmentViewModel.postsList.observe(viewLifecycleOwner, Observer {
             postsAdapter.submitList(it)
         })
         return binding.root

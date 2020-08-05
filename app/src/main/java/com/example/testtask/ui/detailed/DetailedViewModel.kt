@@ -1,18 +1,17 @@
 package com.example.testtask.ui.detailed
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.testtask.model.database.CompletePost
 import com.example.testtask.model.database.DatabaseComment
-import com.example.testtask.database.CompletePostDao
+import com.example.testtask.repository.DatabaseRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class DetailedViewModel @Inject constructor(val completePostDao: CompletePostDao) :
+class DetailedViewModel @Inject constructor(private val databaseRepository: DatabaseRepository) :
     ViewModel() {
 
     private val _selectedPost = MutableLiveData<CompletePost>()
@@ -23,13 +22,11 @@ class DetailedViewModel @Inject constructor(val completePostDao: CompletePostDao
     val commentsList: LiveData<List<DatabaseComment>>
         get() = _commentsList
 
-
     fun fetchPost(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
-            val post = completePostDao.getPostById(id)
+            val post = databaseRepository.getCompletePostWithId(id)
             _selectedPost.postValue(post)
             _commentsList.postValue(post.comments)
         }
     }
-
 }

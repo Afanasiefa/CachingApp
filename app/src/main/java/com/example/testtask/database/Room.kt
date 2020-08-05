@@ -8,7 +8,7 @@ import com.example.testtask.model.database.DatabaseUser
 
 
 @Database(entities = [DatabasePost::class, DatabaseComment::class, DatabaseUser::class], version = 1)
-abstract class DatabasePostBD() : RoomDatabase() {
+abstract class DatabasePostBD : RoomDatabase() {
     abstract fun postDao(): CompletePostDao
 }
 

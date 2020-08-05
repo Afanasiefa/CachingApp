@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,20 +13,20 @@
             android:id="@+id/postItemUsrName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/user_name" />
+            tools:text="@string/user_name" />
 
         <TextView
             android:id="@+id/postItemTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/title"
+            tools:text="@string/title"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/postItemCommentsNum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/comments_number" />
+            tools:text="@string/comments_number" />
 
     </LinearLayout>
 </layout>

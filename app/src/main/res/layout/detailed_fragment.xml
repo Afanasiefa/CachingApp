@@ -14,42 +14,41 @@
             android:id="@+id/postTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/title"
-            android:textSize="@dimen/heading_text_size"
             android:layout_marginTop="@dimen/common_padding"
+            android:textSize="@dimen/heading_text_size"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/title" />
 
         <TextView
             android:id="@+id/postBody"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/some_text"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/postTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/postTitle"
+            tools:text="@string/some_text" />
 
         <TextView
             android:id="@+id/postUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/user_name"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/postBody" />
+            app:layout_constraintTop_toBottomOf="@+id/postBody"
+            tools:text="@string/user_name" />
 
         <TextView
             android:id="@+id/commentText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/comment_heading"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/postUser" />
+            app:layout_constraintTop_toBottomOf="@+id/postUser"
+            android:text="@string/comment_heading" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/commentsList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/commentText"

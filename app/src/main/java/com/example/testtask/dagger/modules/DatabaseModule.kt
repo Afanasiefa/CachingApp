@@ -8,11 +8,10 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class DatabaseModule(val application: Application) {
+class DatabaseModule(private val application: Application) {
 
     @Provides
     @Singleton
-
     fun getDatabasePosts(): DatabasePostBD {
         synchronized(DatabasePostBD::class.java) {
             return Room.databaseBuilder(
@@ -28,6 +27,4 @@ class DatabaseModule(val application: Application) {
     fun getDaoPosts(postsDatabase: DatabasePostBD): CompletePostDao {
         return postsDatabase.postDao()
     }
-
-
 }

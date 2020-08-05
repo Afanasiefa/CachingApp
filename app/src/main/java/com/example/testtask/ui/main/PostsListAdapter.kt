@@ -5,18 +5,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.testtask.model.database.CompletePost
 import com.example.testtask.databinding.PostItemBinding
+import com.example.testtask.model.database.CompletePost
 
 
-class PostsListAdapter(val postClickListener: PostClickListener) :
-    ListAdapter<CompletePost, PostsListAdapter.PostViewHolder>(PostDiffUtils()) {
+class PostsListAdapter(private val postClickListener: PostClickListener) :
+    ListAdapter<CompletePost, PostsListAdapter.PostsListViewHolder>(PostDiffUtils()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
-        return PostViewHolder(PostItemBinding.inflate(LayoutInflater.from(parent.context)))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostsListViewHolder {
+        return PostsListViewHolder(PostItemBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
-    override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PostsListViewHolder, position: Int) {
         val item = getItem(position)
 
         holder.itemView.setOnClickListener {
@@ -31,7 +31,7 @@ class PostsListAdapter(val postClickListener: PostClickListener) :
 
     }
 
-    class PostDiffUtils() : DiffUtil.ItemCallback<CompletePost>() {
+    class PostDiffUtils : DiffUtil.ItemCallback<CompletePost>() {
 
         override fun areItemsTheSame(oldItem: CompletePost, newItem: CompletePost): Boolean {
             return oldItem == newItem
@@ -43,7 +43,7 @@ class PostsListAdapter(val postClickListener: PostClickListener) :
 
     }
 
-    class PostViewHolder(private val binding: PostItemBinding) :
+    class PostsListViewHolder(private val binding: PostItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(post: CompletePost) {
@@ -53,7 +53,6 @@ class PostsListAdapter(val postClickListener: PostClickListener) :
                 .append(post.comments.size.toString())
                 .append(" ")
                 .append("comments")
-
         }
     }
 }

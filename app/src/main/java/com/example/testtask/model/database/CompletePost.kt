@@ -4,7 +4,6 @@ import androidx.room.Embedded
 import androidx.room.Relation
 
 data class CompletePost(
-
     @Embedded val post: DatabasePost,
     @Relation(parentColumn = "userId", entityColumn = "userId")
     var user: DatabaseUser,

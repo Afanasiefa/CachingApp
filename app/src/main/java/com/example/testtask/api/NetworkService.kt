@@ -1,6 +1,5 @@
 package com.example.testtask.api
 
-
 import com.example.testtask.model.network.CommentData
 import com.example.testtask.model.network.PostData
 import com.example.testtask.model.network.UserData
@@ -13,6 +12,6 @@ interface  NetworkService{
     @GET("comments")
     suspend fun getCommentsFromServer(): List<CommentData>
 
-    @GET("userSomeApis")
+    @GET("users")
     suspend fun getUsersFromServer(): List<UserData>
 }

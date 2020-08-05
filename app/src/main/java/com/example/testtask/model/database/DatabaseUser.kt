@@ -7,12 +7,12 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "users_table")
 data class DatabaseUser(
-    @PrimaryKey val userId: Int,
+    @PrimaryKey val userId: Long,
     @ColumnInfo val name: String,
     @ColumnInfo val username: String,
     @ColumnInfo val email: String,
     @Embedded
-    val address: DatabaseAdress,
+    val address: DatabaseAddress,
     @ColumnInfo val phone: String,
     @ColumnInfo val website: String,
     @Embedded
@@ -30,7 +30,7 @@ data class DatabaseCompany(
     val bs: String
 )
 
-data class DatabaseAdress(
+data class DatabaseAddress(
     val street: String,
     val suite: String,
     val city: String,

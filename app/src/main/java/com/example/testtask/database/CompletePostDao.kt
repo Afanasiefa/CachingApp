@@ -24,5 +24,4 @@ interface CompletePostDao {
     @Transaction
     @Query("SELECT * FROM posts_table WHERE postId = :id")
     fun getPostById(id: Long): CompletePost
-
 }

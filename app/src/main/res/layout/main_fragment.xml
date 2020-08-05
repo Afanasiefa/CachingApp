@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
@@ -11,14 +10,11 @@
         android:orientation="vertical"
         tools:context=".ui.main.MainFragment">
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/postsList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/post_item"
-            />
+            tools:listitem="@layout/post_item" />
 
     </LinearLayout>
 </layout>

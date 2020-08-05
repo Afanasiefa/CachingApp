@@ -9,33 +9,39 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testtask.dagger.App
-import com.example.testtask.databinding.DetailedFragmentBinding
 import com.example.testtask.dagger.modules.viewmodel.ViewModelFactory
+import com.example.testtask.databinding.DetailedFragmentBinding
 import javax.inject.Inject
 
-class DetailedFragment  : Fragment() {
+class DetailedFragment : Fragment() {
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
     private lateinit var binding: DetailedFragmentBinding
     private lateinit var viewModel: DetailedViewModel
     private lateinit var commentAdapter: CommentsListAdapter
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         App.appComponent.inject(this)
 
         binding = DetailedFragmentBinding.inflate(inflater)
         viewModel = ViewModelProvider(this, viewModelFactory).get(DetailedViewModel::class.java)
 
-
         val postId = DetailedFragmentArgs.fromBundle(arguments!!).id
         viewModel.fetchPost(postId)
 
         viewModel.selectedPost.observe(viewLifecycleOwner, Observer {
-            binding.postTitle.text = viewModel.selectedPost.value?.post?.title
-            binding.postBody.text = viewModel.selectedPost.value?.post?.body
-            binding.postUser.text = viewModel.selectedPost.value?.user?.username
+            it?.let { completePost ->
+                binding.apply {
+                    postTitle.text = completePost.post.title
+                    postBody.text = completePost.post.body
+                    postUser.text = completePost.user.username
+                }
+            }
         })
 
         commentAdapter = CommentsListAdapter()
@@ -50,7 +56,5 @@ class DetailedFragment  : Fragment() {
 
         return binding.root
     }
-
-
 
 }

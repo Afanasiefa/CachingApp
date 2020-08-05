@@ -6,24 +6,27 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.testtask.model.database.CompletePost
-import com.example.testtask.repository.NetworkRepository
+import com.example.testtask.repository.CompletePostRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(val networkRepository: NetworkRepository)  : ViewModel() {
+class MainFragmentViewModel @Inject constructor(private val completePostRepository: CompletePostRepository) :
+    ViewModel() {
 
     private var _postsList = MutableLiveData<List<CompletePost>>()
     val postsList: LiveData<List<CompletePost>>
         get() = _postsList
 
     init {
-        fetchPost()
+        fetchCompletePost()
     }
 
-    fun fetchPost(){
+    private fun fetchCompletePost() {
         viewModelScope.launch {
-            val post = networkRepository.getPosts()
-            _postsList.value = post
+            Dispatchers.IO
+            val post = completePostRepository.getCompletePosts()
+            _postsList.postValue(post)
             Log.i("FETCHED", post.toString())
         }
     }

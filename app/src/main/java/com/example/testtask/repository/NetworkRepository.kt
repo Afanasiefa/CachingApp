@@ -1,44 +1,35 @@
 package com.example.testtask.repository
 
-
-import android.util.Log
 import com.example.testtask.api.NetworkService
 import com.example.testtask.database.CompletePostDao
 import com.example.testtask.model.database.CompletePost
-import com.example.testtask.model.network.asDatabaseModel
+import com.example.testtask.utils.commentAsDatabaseModel
+import com.example.testtask.utils.postAsDatabaseModel
+import com.example.testtask.utils.userAsDatabaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class NetworkRepository @Inject constructor(
-    val networkService: NetworkService, val databaseCompletePost: CompletePostDao
+class CompletePostRepository @Inject constructor(
+    private val networkService: NetworkService, private val completePostDao: CompletePostDao
 ) {
 
+    suspend fun getCompletePosts(): List<CompletePost> {
+        return withContext(Dispatchers.IO) {
+            val posts = networkService.getPostFromServer()
+            val comments = networkService.getCommentsFromServer()
+            val user = networkService.getUsersFromServer()
 
-    suspend fun getPosts(): List<CompletePost> {
-        try {
-            return withContext(Dispatchers.IO) {
-                val posts = networkService.getPostFromServer()
-                val comments = networkService.getCommentsFromServer()
-                val user = networkService.getUsersFromServer()
+            val postToDb = posts.postAsDatabaseModel()
+            val commentToDb = comments.commentAsDatabaseModel()
+            val userToDb = user.userAsDatabaseModel()
 
-                val postToDb = posts.asDatabaseModel()
-                val commentToDb = comments.asDatabaseModel()
-                val userToDb = user.asDatabaseModel()
-
-                databaseCompletePost.apply {
-                    insertAllPosts(postToDb)
-                    insertAllComments(commentToDb)
-                    insertAllUsers(userToDb)
-                }
-                databaseCompletePost.getAllPosts()
-
+            completePostDao.apply {
+                insertAllPosts(postToDb)
+                insertAllComments(commentToDb)
+                insertAllUsers(userToDb)
             }
-
-
-        } catch (e: Exception) {
-            Log.e("TAG", e.message)
-            return emptyList()
+            completePostDao.getAllPosts()
         }
     }
 }
