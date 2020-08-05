@@ -1,6 +1,7 @@
 package com.example.testtask.dagger
 
 import android.app.Application
+import com.example.testtask.dagger.modules.DatabaseModule
 
 class App  : Application(){
 
@@ -10,7 +11,11 @@ class App  : Application(){
         super.onCreate()
         appComponent = DaggerAppComponent
             .builder()
-            .databaseModule(DatabaseModule(this))
+            .databaseModule(
+                DatabaseModule(
+                    this
+                )
+            )
             .build()
 
     }

@@ -1,11 +1,11 @@
-package com.example.testtask.ui.main
+package com.example.testtask.ui.detailed
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.testtask.database.DatabaseComment
+import com.example.testtask.model.database.DatabaseComment
 import com.example.testtask.databinding.CommentItemBinding
 
 

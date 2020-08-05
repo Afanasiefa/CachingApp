@@ -1,6 +1,6 @@
-package com.example.testtask.network.post
+package com.example.testtask.model.network
 
-import com.example.testtask.database.DatabasePost
+import com.example.testtask.model.database.DatabasePost
 import com.google.gson.annotations.SerializedName
 
 

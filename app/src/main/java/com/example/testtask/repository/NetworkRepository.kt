@@ -2,33 +2,36 @@ package com.example.testtask.repository
 
 
 import android.util.Log
-import com.example.testtask.database.CompletePost
-import com.example.testtask.database.PostDao
-import com.example.testtask.network.post.SomeApi
-import com.example.testtask.network.post.asDatabaseModel
+import com.example.testtask.api.NetworkService
+import com.example.testtask.database.CompletePostDao
+import com.example.testtask.model.database.CompletePost
+import com.example.testtask.model.network.asDatabaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class NetworkRepository @Inject constructor(
-    val someApi: SomeApi, val databasePost: PostDao
+    val networkService: NetworkService, val databaseCompletePost: CompletePostDao
 ) {
 
 
     suspend fun getPosts(): List<CompletePost> {
         try {
             return withContext(Dispatchers.IO) {
-                val posts = someApi.getPostFromServer()
-                val comments = someApi.getCommentsFromServer()
-                val user = someApi.getUsersFromServer()
+                val posts = networkService.getPostFromServer()
+                val comments = networkService.getCommentsFromServer()
+                val user = networkService.getUsersFromServer()
 
                 val postToDb = posts.asDatabaseModel()
                 val commentToDb = comments.asDatabaseModel()
                 val userToDb = user.asDatabaseModel()
-                databasePost.insertAllPosts(postToDb)
-                databasePost.insertAllComments(commentToDb)
-                databasePost.insertAllUsers(userToDb)
-                databasePost.getAllPosts()
+
+                databaseCompletePost.apply {
+                    insertAllPosts(postToDb)
+                    insertAllComments(commentToDb)
+                    insertAllUsers(userToDb)
+                }
+                databaseCompletePost.getAllPosts()
 
             }
 
@@ -38,6 +41,4 @@ class NetworkRepository @Inject constructor(
             return emptyList()
         }
     }
-
-
 }

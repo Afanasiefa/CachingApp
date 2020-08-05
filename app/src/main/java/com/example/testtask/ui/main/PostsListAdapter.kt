@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.testtask.database.CompletePost
+import com.example.testtask.model.database.CompletePost
 import com.example.testtask.databinding.PostItemBinding
 
 

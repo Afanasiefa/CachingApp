@@ -1,8 +1,6 @@
-package com.example.testtask.network.post
+package com.example.testtask.model.network
 
-import androidx.room.ColumnInfo
-import androidx.room.PrimaryKey
-import com.example.testtask.database.DatabaseComment
+import com.example.testtask.model.database.DatabaseComment
 import com.google.gson.annotations.SerializedName
 
 

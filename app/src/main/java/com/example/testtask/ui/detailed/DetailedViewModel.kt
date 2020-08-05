@@ -5,14 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.testtask.database.CompletePost
-import com.example.testtask.database.DatabaseComment
-import com.example.testtask.database.PostDao
+import com.example.testtask.model.database.CompletePost
+import com.example.testtask.model.database.DatabaseComment
+import com.example.testtask.database.CompletePostDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class DetailedViewModel @Inject constructor(val postDao: PostDao) :
+class DetailedViewModel @Inject constructor(val completePostDao: CompletePostDao) :
     ViewModel() {
 
     private val _selectedPost = MutableLiveData<CompletePost>()
@@ -26,10 +26,8 @@ class DetailedViewModel @Inject constructor(val postDao: PostDao) :
 
     fun fetchPost(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
-            val post = postDao.getPostById(id)
+            val post = completePostDao.getPostById(id)
             _selectedPost.postValue(post)
-            Log.i("TAG2", id.toInt().toString())
-            Log.i("TAG21", post.toString())
             _commentsList.postValue(post.comments)
         }
     }

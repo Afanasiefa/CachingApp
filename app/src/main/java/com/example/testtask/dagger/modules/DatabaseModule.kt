@@ -1,8 +1,7 @@
-package com.example.testtask.dagger
+package com.example.testtask.dagger.modules
 
 import android.app.Application
 import androidx.room.Room
-
 import com.example.testtask.database.*
 import dagger.Module
 import dagger.Provides
@@ -26,7 +25,7 @@ class DatabaseModule(val application: Application) {
 
     @Provides
     @Singleton
-    fun getDaoPosts(postsDatabase: DatabasePostBD): PostDao {
+    fun getDaoPosts(postsDatabase: DatabasePostBD): CompletePostDao {
         return postsDatabase.postDao()
     }
 

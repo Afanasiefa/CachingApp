@@ -1,7 +1,10 @@
-package com.example.testtask.network.post
+package com.example.testtask.model.network
 
 import android.os.Parcelable
-import com.example.testtask.database.DatabaseUser
+import com.example.testtask.model.database.DatabaseAdress
+import com.example.testtask.model.database.DatabaseCompany
+import com.example.testtask.model.database.DatabaseGeo
+import com.example.testtask.model.database.DatabaseUser
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -50,10 +53,24 @@ fun List<UserData>.asDatabaseModel(): List<DatabaseUser> {
             username = it.username,
             email = it.email,
             phone = it.phone,
-            website = it.website
+            website = it.website,
+            address = DatabaseAdress(
+                street = it.address.street,
+                suite = it.address.suite,
+                city = it.address.city,
+                zipcode = it.address.zipcode,
+                geo = DatabaseGeo(
+                    lat = it.address.geo.lat,
+                    lng = it.address.geo.lng
+                )
+            ),
+            company = DatabaseCompany(
+                companyName = it.company.name,
+                catchPhrase = it.company.catchPhrase,
+                bs = it.company.bs
+            )
         )
     }
 
 }
-
 

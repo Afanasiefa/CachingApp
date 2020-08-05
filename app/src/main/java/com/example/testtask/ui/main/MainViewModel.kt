@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.testtask.database.CompletePost
+import com.example.testtask.model.database.CompletePost
 import com.example.testtask.repository.NetworkRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,7 +16,6 @@ class MainViewModel @Inject constructor(val networkRepository: NetworkRepository
     val postsList: LiveData<List<CompletePost>>
         get() = _postsList
 
-
     init {
         fetchPost()
     }
@@ -25,7 +24,7 @@ class MainViewModel @Inject constructor(val networkRepository: NetworkRepository
         viewModelScope.launch {
             val post = networkRepository.getPosts()
             _postsList.value = post
-            Log.i("TAG", post.toString())
+            Log.i("FETCHED", post.toString())
         }
     }
 }

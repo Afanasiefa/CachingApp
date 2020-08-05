@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testtask.dagger.App
 import com.example.testtask.databinding.MainFragmentBinding
-import com.example.testtask.viewmodel.ViewModelFactory
+import com.example.testtask.dagger.modules.viewmodel.ViewModelFactory
 import javax.inject.Inject
 
 class MainFragment : Fragment() {
@@ -37,7 +37,7 @@ class MainFragment : Fragment() {
         postsAdapter = PostsListAdapter(PostsListAdapter.PostClickListener {
             findNavController().navigate(
                 MainFragmentDirections.actionMainFragmentToDetailedFragment(
-                    it.post.postId.toLong()
+                    it.post.postId!!.toLong()
                 )
             )
         })

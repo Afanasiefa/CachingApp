@@ -10,16 +10,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testtask.dagger.App
 import com.example.testtask.databinding.DetailedFragmentBinding
-import com.example.testtask.ui.main.CommentsListAdapter
-import com.example.testtask.viewmodel.ViewModelFactory
-import kotlinx.android.synthetic.main.comment_item.view.*
+import com.example.testtask.dagger.modules.viewmodel.ViewModelFactory
 import javax.inject.Inject
 
 class DetailedFragment  : Fragment() {
 
     private lateinit var binding: DetailedFragmentBinding
     private lateinit var viewModel: DetailedViewModel
-   private lateinit var commentAdapter: CommentsListAdapter
+    private lateinit var commentAdapter: CommentsListAdapter
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -37,7 +35,7 @@ class DetailedFragment  : Fragment() {
         viewModel.selectedPost.observe(viewLifecycleOwner, Observer {
             binding.postTitle.text = viewModel.selectedPost.value?.post?.title
             binding.postBody.text = viewModel.selectedPost.value?.post?.body
-            binding.postUser.text = viewModel.selectedPost.value?.user.username
+            binding.postUser.text = viewModel.selectedPost.value?.user?.username
         })
 
         commentAdapter = CommentsListAdapter()
