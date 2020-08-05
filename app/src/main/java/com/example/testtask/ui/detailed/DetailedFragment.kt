@@ -31,8 +31,8 @@ class DetailedFragment : Fragment() {
         binding = DetailedFragmentBinding.inflate(inflater)
         viewModel = ViewModelProvider(this, viewModelFactory).get(DetailedViewModel::class.java)
 
-        val postId = DetailedFragmentArgs.fromBundle(arguments!!).id
-        viewModel.fetchPost(postId)
+        val postId = arguments?.let { DetailedFragmentArgs.fromBundle(it).id }
+        postId?.let { viewModel.fetchPost(it) }
 
         viewModel.selectedPost.observe(viewLifecycleOwner, Observer {
             it?.let { completePost ->

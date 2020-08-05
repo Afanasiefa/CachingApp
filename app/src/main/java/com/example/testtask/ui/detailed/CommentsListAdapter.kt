@@ -4,12 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.example.testtask.databinding.CommentItemBinding
 import com.example.testtask.model.database.DatabaseComment
 
 class CommentsListAdapter :
-    ListAdapter<DatabaseComment, CommentsListAdapter.CommentsListViewHolder>(CommentDiffUtils()) {
+    ListAdapter<DatabaseComment, CommentsListViewHolder>(CommentDiffUtils()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentsListViewHolder {
         return CommentsListViewHolder(CommentItemBinding.inflate(LayoutInflater.from(parent.context)))
@@ -30,15 +29,6 @@ class CommentsListAdapter :
             return oldItem.commentId == newItem.commentId
         }
 
-    }
-
-    class CommentsListViewHolder(private val binding: CommentItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(comment: DatabaseComment) {
-            binding.commentBody.text = comment.body
-            binding.commentAuthorEmail.text = comment.email
-        }
     }
 }
 

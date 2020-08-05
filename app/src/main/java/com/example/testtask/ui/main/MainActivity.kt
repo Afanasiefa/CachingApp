@@ -1,8 +1,8 @@
-package com.example.testtask
+package com.example.testtask.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.testtask.ui.main.MainFragment
+import com.example.testtask.R
 
 class MainActivity : AppCompatActivity() {
 

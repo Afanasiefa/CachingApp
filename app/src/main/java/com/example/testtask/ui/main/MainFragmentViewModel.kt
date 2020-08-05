@@ -23,8 +23,7 @@ class MainFragmentViewModel @Inject constructor(private val completePostReposito
     }
 
     private fun fetchCompletePost() {
-        viewModelScope.launch {
-            Dispatchers.IO
+        viewModelScope.launch(Dispatchers.IO) {
             val post = completePostRepository.getCompletePosts()
             _postsList.postValue(post)
             Log.i("FETCHED", post.toString())

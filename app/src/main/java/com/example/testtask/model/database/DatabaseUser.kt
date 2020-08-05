@@ -18,23 +18,3 @@ data class DatabaseUser(
     @Embedded
     val company: DatabaseCompany
 )
-
-data class DatabaseGeo(
-    val lat: Double,
-    val lng: Double
-)
-
-data class DatabaseCompany(
-    val companyName: String,
-    val catchPhrase: String,
-    val bs: String
-)
-
-data class DatabaseAddress(
-    val street: String,
-    val suite: String,
-    val city: String,
-    val zipcode: String,
-    @Embedded
-    val geo: DatabaseGeo
-)
