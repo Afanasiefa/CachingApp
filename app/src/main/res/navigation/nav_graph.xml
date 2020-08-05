@@ -8,16 +8,17 @@
     <fragment
         android:id="@+id/detailedFragment"
         android:name="com.example.testtask.ui.detailed.DetailedFragment"
-        android:label="detailed_fragment"
         tools:layout="@layout/detailed_fragment" >
         <argument
             android:name="id"
             app:argType="long" />
+        <action
+            android:id="@+id/action_detailedFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.testtask.ui.main.MainFragment"
-        android:label="main_fragment"
         tools:layout="@layout/main_fragment" >
         <action
             android:id="@+id/action_mainFragment_to_detailedFragment"
