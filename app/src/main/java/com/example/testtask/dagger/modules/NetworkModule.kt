@@ -3,7 +3,6 @@ package com.example.testtask.dagger.modules
 import com.example.testtask.api.NetworkService
 import com.example.testtask.database.CompletePostDao
 import com.example.testtask.repository.CompletePostRepository
-import com.example.testtask.repository.DatabaseRepository
 import com.example.testtask.utils.Constants
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
@@ -35,10 +34,4 @@ class NetworkModule {
         api: NetworkService,
         completePostDao: CompletePostDao
     ): CompletePostRepository = CompletePostRepository(api, completePostDao)
-
-    @Provides
-    @Singleton
-    fun getDatabaseRepository(dao: CompletePostDao): DatabaseRepository {
-        return DatabaseRepository(dao)
-    }
 }
